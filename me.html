@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>杨郭一凡 · 后端开发作品集</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid #eef2f6;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 头部区域 */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .hero-info h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1e293b, #2d3a4e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            background: #eef2ff;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin: 0.75rem 0 1rem 0;
+        }
+
+        .hero-desc {
+            color: #334155;
+            max-width: 550px;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #1e293b;
+        }
+
+        .contact-info a, .contact-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2c3e50;
+            text-decoration: none;
+            background: #f1f5f9;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            transition: background 0.2s;
+        }
+
+        .contact-info a:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .expect-box {
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 0.8rem 1.2rem;
+            border-radius: 20px;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* 技能标签组 */
+        .skills-section h2, .projects-section h2, .education-section h2, .self-eval h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: #f1f5f9;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e2a3a;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .skill-tag:hover {
+            background: #e6edf5;
+            transform: translateY(-2px);
+        }
+
+        .skill-category {
+            margin-bottom: 1.5rem;
+        }
+        .skill-category h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #0f3b5c;
+        }
+
+        /* 项目卡片双列 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid #eef2f6;
+            transition: all 0.25s;
+        }
+
+        .project-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .project-date {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #5b6e8c;
+            background: #f1f5f9;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1rem 0;
+        }
+
+        .tech-badge {
+            background: #eef2ff;
+            color: #1e40af;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+        }
+
+        .project-desc-list {
+            padding-left: 1.2rem;
+            margin-top: 0.7rem;
+        }
+        .project-desc-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #2d3a4e;
+        }
+
+        /* 教育+荣誉flex */
+        .edu-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        .edu-main {
+            flex: 2;
+        }
+        .honors {
+            flex: 1.2;
+            background: #fefce8;
+            padding: 1.2rem;
+            border-radius: 24px;
+        }
+        .edu-item h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .edu-meta {
+            color: #4b5563;
+            margin: 0.3rem 0 0.8rem 0;
+            font-weight: 500;
+        }
+        .course-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .course-list span {
+            background: #eef2ff;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .honor-item {
+            margin-bottom: 0.9rem;
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .honor-item i {
+            width: 1.6rem;
+            color: #eab308;
+        }
+
+        .self-eval p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f9fafb;
+            padding: 1rem 1.4rem;
+            border-radius: 28px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #6c7a91;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.2rem;
+            }
+            .hero-info h1 {
+                font-size: 2rem;
+            }
+            .hero-tagline {
+                font-size: 1rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .icon-em {
+            margin-right: 0.3rem;
+            color: #3b82f6;
+        }
+        .section-icon {
+            background: #eef2ff;
+            border-radius: 40px;
+            padding: 0.2rem 0.6rem;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 头部卡片：个人信息 + 求职意向 -->
+    <div class="card">
+        <div class="hero">
+            <div class="hero-info">
+                <h1>杨郭一凡</h1>
+                <div class="hero-tagline">
+                    <i class="fas fa-code"></i> Java后端开发 · 应届本科
+                </div>
+                <div class="hero-desc">
+                    热爱工程与创新，具备独立全栈开发能力，擅长Spring生态、AI集成（RAG）及服务端运维。追求简洁高效的代码，乐于解决复杂问题。
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone-alt"></i> 155 9538 4774</span>
+                    <span><i class="fas fa-envelope"></i> yang.gyf@nxu.edu.cn</span>
+                    <span><i class="fab fa-github"></i> github.com/yangguoyifan</span>
+                </div>
+                <div class="expect-box">
+                    <i class="fas fa-map-marker-alt"></i> 期望：银川 / 西安 &nbsp;|&nbsp;
+                    <i class="fas fa-coins"></i> 薪资：4-6K/月 &nbsp;|&nbsp;
+                    <i class="fas fa-briefcase"></i> 到岗：毕业即入职
+                </div>
+            </div>
+            <div style="min-width: 100px;">
+                <!-- 简约装饰，无头像也能保持风格 -->
+                <div style="background: #eef2ff; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 0.5rem;">
+                    <i class="fas fa-laptop-code" style="font-size: 2.5rem; color: #2c5f8a;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 专业技能区域 标签分类-->
+    <div class="skills-section card">
+        <h2><i class="fas fa-cog icon-em"></i> 专业技能</h2>
+        <div class="skill-category">
+            <h3><i class="fab fa-java"></i> Java后端</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Java 基础/多线程</span>
+                <span class="skill-tag">SpringBoot / SpringMVC</span>
+                <span class="skill-tag">MyBatis</span>
+                <span class="skill-tag">RESTful API</span>
+                <span class="skill-tag">Maven/Gradle</span>
+            </div>
+        </div>
+        <div class="skill-category">
+            <h3><i class="fas fa-database"></i> 数据库 & 缓存</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">MySQL (索引/事务/SQL优化)</span>
+                <span class="skill-tag">Redis (会话缓存/性能优化)</span>
+                <span class="skill-tag">数据库向量检索</span>
+            </div>
+        </div>
+        <div class="skill-category">
+            <h3><i class="fas fa-cloud-upload-alt"></i> 运维 & 网络</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Linux (CentOS/Ubuntu)</span>
+                <span class="skill-tag">Docker / Nginx</span>
+                <span class="skill-tag">TCP/IP, HTTP, netstat/telnet</span>
+                <span class="skill-tag">项目部署/故障排查</span>
+            </div>
+        </div>
+        <div class="skill-category">
+            <h3><i class="fas fa-brain"></i> AI应用开发</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">大模型API (通义千问等)</span>
+                <span class="skill-tag">RAG检索增强生成</span>
+                <span class="skill-tag">私有知识库 + 余弦相似度</span>
+                <span class="skill-tag">向量数据库集成</span>
+            </div>
+        </div>
+        <div class="skill-category">
+            <h3><i class="fas fa-microchip"></i> 计算机基础 & 英语</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">数据结构/算法</span>
+                <span class="skill-tag">操作系统/计算机网络</span>
+                <span class="skill-tag">CET-6 (英文文档阅读)</span>
+                <span class="skill-tag">外研杯全国二等奖</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 项目经验：两个核心项目 网格 -->
+    <div class="projects-section card">
+        <h2><i class="fas fa-laptop-code icon-em"></i> 项目作品</h2>
+        <div class="projects-grid">
+            <!-- 项目1：苍穹外卖后台管理系统 -->
+            <div class="project-card">
+                <div class="project-title">
+                    苍穹外卖后台管理系统
+                    <span class="project-date">2025.12 – 2026.02</span>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-badge">SpringBoot</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">Nginx</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">AI大模型/RAG</span>
+                </div>
+                <p style="margin: 0.5rem 0 0.2rem 0; color: #334155; font-size: 0.9rem;"><strong>项目简介：</strong>外卖平台全流程后台管理系统，集成AI大模型辅助智能菜品分析与订单管理，支持高并发会话缓存。</p>
+                <ul class="project-desc-list">
+                    <li>✅ 独立完成后端接口开发（员工鉴权、菜品CRUD、订单状态），接口响应效率优化约30%。</li>
+                    <li>✅ 基于Redis实现登录会话缓存，解决重复登录问题，显著提升访问稳定性。</li>
+                    <li>✅ 基于Docker完成Linux服务器部署与调试，解决服务启动异常，保障7×24h稳定运行。</li>
+                    <li>✅ 编写标准化接口文档，规范前后端交互，提升团队协作可维护性。</li>
+                    <li>🤖 额外集成大模型API与向量检索，实现菜品知识库智能问答，落地RAG技术。</li>
+                </ul>
+            </div>
+            <!-- 项目2：企业级智能知识问答系统 -->
+            <div class="project-card">
+                <div class="project-title">
+                    企业级智能知识问答系统
+                    <span class="project-date">2026.02 – 至今</span>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">通义千问API</span>
+                    <span class="tech-badge">RAG</span>
+                    <span class="tech-badge">余弦相似度</span>
+                    <span class="tech-badge">MySQL向量检索</span>
+                </div>
+                <p style="margin: 0.5rem 0 0.2rem 0; color: #334155; font-size: 0.9rem;"><strong>项目简介：</strong>企业级私有知识问答平台，结合大模型与本地向量数据库，有效解决大模型幻觉问题，精准回答内部文档/FAQ。</p>
+                <ul class="project-desc-list">
+                    <li>🔹 设计并实现RAG架构：文档切片→向量化+余弦相似度检索→大模型增强生成，准确率提升40%。</li>
+                    <li>🔹 后端基于Spring Boot，统一封装大模型接口，支持多轮对话与私有数据动态接入。</li>
+                    <li>🔹 开发知识库管理模块，实现文档上传、向量索引构建，支撑企业级非结构化数据问答。</li>
+                    <li>🔹 结合Redis缓存热点问题，降低API调用成本，响应时间缩减至1.2s内。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 教育经历 + 荣誉证书 -->
+    <div class="education-section card">
+        <h2><i class="fas fa-graduation-cap icon-em"></i> 教育背景</h2>
+        <div class="edu-flex">
+            <div class="edu-main">
+                <div class="edu-item">
+                    <h3>宁夏大学 · 软件工程</h3>
+                    <div class="edu-meta"><i class="far fa-calendar-alt"></i> 2023.09 – 2027.06 (本科) &nbsp;|&nbsp; 预计学士学位</div>
+                    <div><strong>主修课程：</strong></div>
+                    <div class="course-list">
+                        <span>Java程序设计</span><span>数据结构与算法</span><span>计算机组成原理</span>
+                        <span>操作系统</span><span>计算机网络</span><span>数据库原理</span>
+                    </div>
+                    <div style="margin-top: 1rem;"><i class="fas fa-trophy"></i> <strong>综合绩点：</strong> 前30% &nbsp;| 校级优秀学生干部（2024）</div>
+                </div>
+            </div>
+            <div class="honors">
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem;"><i class="fas fa-medal"></i> 获奖与证书</h3>
+                <div class="honor-item"><i class="fas fa-certificate"></i> 大学英语六级 (CET-6) · 578分</div>
+                <div class="honor-item"><i class="fas fa-award"></i> 外研杯全国大学生英语竞赛 二等奖</div>
+                <div class="honor-item"><i class="fas fa-laptop"></i> 宁夏大学程序设计大赛 银奖</div>
+                <div class="honor-item"><i class="fas fa-cloud"></i> 阿里云ACA云计算认证 (在学)</div>
+                <div class="honor-item"><i class="fab fa-github"></i> 开源贡献：RAG文档工具组件 (个人项目)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自我评价  + 额外特点 -->
+    <div class="self-eval card">
+        <h2><i class="fas fa-pen-fancy icon-em"></i> 关于我</h2>
+        <p>
+            「扎实的后端基础 + 主动的工程热情」<br><br>
+            具备完整项目开发、部署及运维的全链路经验，独立承担模块设计与优化。熟悉现代后端技术栈与AI应用融合，
+            热衷于用技术解决实际业务问题。做事踏实，责任心强，善于团队协作，有良好的抗压能力和自驱力。乐于在
+            Java后端领域持续深耕，创造高可用、可扩展的系统。
+        </p>
+        <!-- 补充运维+其他特点卡片 -->
+        <hr>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.8rem; justify-content: space-between;">
+            <div><i class="fas fa-check-circle" style="color:#2b9348;"></i> 独立完成项目开发→上线全流程</div>
+            <div><i class="fas fa-check-circle" style="color:#2b9348;"></i> 熟悉Docker + Linux生产环境调试</div>
+            <div><i class="fas fa-check-circle" style="color:#2b9348;"></i> 快速学习新框架与AI技术组件</div>
+        </div>
+    </div>
+
+    <!-- 联系方式尾注 简洁 -->
+    <footer>
+        <i class="fas fa-code-branch"></i> 持续迭代 · 作品集动态更新 &nbsp;&nbsp;|&nbsp;&nbsp;
+        📍 可远程 / 银川 西安 onsite &nbsp;&nbsp;|&nbsp;&nbsp;
+        <i class="far fa-envelope"></i> yang.gyf@nxu.edu.cn
+        <br><small>© 2026 杨郭一凡 — 简洁作品集 | 期待与您共创后端工程</small>
+    </footer>
+</div>
+</body>
+</html>
